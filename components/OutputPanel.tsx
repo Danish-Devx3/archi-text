@@ -77,7 +77,7 @@ export function OutputPanel({ mermaidCode, explanation, isLoading }: OutputPanel
 
             {/* Terminal / Analysis Panel (Collapsible) */}
             <AnimatePresence>
-                {showTerminal && explanation && (
+                {showTerminal && (
                     <motion.div
                         initial={{ height: 0 }}
                         animate={{ height: "30%" }}
@@ -115,8 +115,8 @@ export function OutputPanel({ mermaidCode, explanation, isLoading }: OutputPanel
                             Console
                         </button>
                     )}
-                    <span>UTF-8</span>
-                    <span>Mermaid JS</span>
+
+                    <span>Made with ❤️ by Danish</span>
                 </div>
             </div>
         </div>
