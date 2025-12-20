@@ -92,7 +92,7 @@ export default function Home() {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Strictly defined 50/50 split */}
-        <div className="1/5 h-full overflow-hidden">
+        <div className="w-1/5 h-full overflow-hidden">
           <InputPanel
             input={input}
             setInput={setInput}
@@ -101,7 +101,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex-1 h-full overflow-hidden">
+        <div className="w-4/5 h-full overflow-hidden">
           <OutputPanel
             mermaidCode={mermaidCode}
             explanation={explanation}

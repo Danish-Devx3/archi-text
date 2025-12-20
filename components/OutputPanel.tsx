@@ -112,7 +112,7 @@ export function OutputPanel({ mermaidCode, explanation, isLoading }: OutputPanel
                             className={cn("hover:text-slate-300 transition-colors flex items-center gap-1", showTerminal && "text-indigo-400")}
                         >
                             <BookOpen size={10} />
-                            Console
+                            Explanation
                         </button>
                     )}
 

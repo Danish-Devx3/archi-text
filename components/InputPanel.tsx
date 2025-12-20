@@ -12,12 +12,11 @@ interface InputPanelProps {
 }
 
 const TEMPLATES = [
-    { label: "Flowchart", text: "graph TD\n    A[Start] --> B{Is it?}\n    B -- Yes --> C[OK]\n    C --> D[Rethink]\n    D --> B\n    B -- No --> E[End]" },
-    { label: "Sequence", text: "sequenceDiagram\n    participant Alice\n    participant Bob\n    Alice->>John: Hello John, how are you?\n    loop Healthcheck\n        John->>John: Fight against hypochondria\n    end\n    Note right of John: Rational thoughts <br/>prevail!\n    John-->>Alice: Great!" },
-    { label: "Class", text: "classDiagram\n    Animal <|-- Duck\n    Animal <|-- Fish\n    Animal <|-- Zebra\n    Animal : +int age\n    Animal : +String gender\n    Animal: +isMammal()\n    Animal: +mate()\n    class Duck{\n        +String beakColor\n        +swim()\n        +quack()\n    }" },
-    { label: "State", text: "stateDiagram-v2\n    [*] --> Still\n    Still --> [*]\n    Still --> Moving\n    Moving --> Still\n    Moving --> Crash\n    Crash --> [*]" },
-    { label: "Gantt", text: "gantt\n    title A Gantt Diagram\n    dateFormat  YYYY-MM-DD\n    section Section\n    A task           :a1, 2014-01-01, 30d\n    Another task     :after a1  , 20d\n    section Another\n    Task in sec      :2014-01-12  , 12d\n    another task      : 24d" },
-    { label: "Mindmap", text: "mindmap\n  root((mindmap))\n    Origins\n      Long history\n      ::icon(fa fa-book)\n      Popularisation\n        British popular psychology author Tony Buzan\n    Research\n      On effectiveness<br/>and features\n      On Automatic creation\n        Uses\n            Creative techniques\n            Strategic planning\n            Argument mapping" },
+    { label: "Flowchart", text: "Explain the flowchart for a web application" },
+    { label: "Docker Architecture", text: "Explain the docker architecture for beginners" },
+    { label: "HTTP Workflow", text: "Explain the HTTP workflow of a web application" },
+    { label: "React State Diagram", text: "Explain the state of a React component" },
+    { label: "Code Snippet Diagram & Explanation", text: " [Explain it & give Diagram] export async function POST(req: Request) {\n    try {\n        const { message, model, apiKey, baseUrl, systemPrompt } = await req.json();\n\n        // Check if using a custom key that isn't the default placeholder\n        const headers: Record<string, string> = {};\n        if (apiKey && apiKey !== 'ollama') {\n            headers['Authorization'] = `Bearer ${apiKey}`;\n        }\n\n        const ollama = new Ollama({\n            host: baseUrl || 'http://localhost:11434', \n            headers,\n        });\n\n        const completion = await ollama.chat({\n            model: model || 'llama3',\n            messages: [\n                { role: 'system', content: systemPrompt },\n                { role: 'user', content: message },\n            ],\n            format: 'json',\n        });\n\n        let content = completion.message.content || '{}';\n        // Sanitize: Remove markdown code blocks if the model includes them despite instructions\n        content = content.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n\n        return NextResponse.json(JSON.parse(content));\n    } catch (error: any) {\n        console.error(\"API Error:\", error);\n        return NextResponse.json(\n            { error: error.message || 'Internal Server Error', mermaid: '', explanation: '' },\n            { status: 500 }\n        );\n    }\n}" },
 ];
 
 export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPanelProps) {
@@ -25,7 +24,7 @@ export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPane
         <div className="flex flex-col h-full bg-[#161b22] border-r border-slate-800">
             {/* Toolbar / Label */}
             <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-[#161b22]">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Editor</span>
+                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Input</span>
                 <button
                     onClick={onGenerate}
                     disabled={isLoading}
