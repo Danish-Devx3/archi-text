@@ -4,21 +4,21 @@ import React, { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { InputPanel } from "@/components/InputPanel";
 import { OutputPanel } from "@/components/OutputPanel";
-import { createClient, generateDiagramConfig } from "@/lib/openai";
+import { generateDiagramConfig } from "@/lib/openai";
 
 export default function Home() {
-  // State for Settings
+  // Settings State
   const [apiKey, setApiKey] = useState("644633e59f7e45f39c2f6df2de408c31.VgbbsHjX1LxszE7wyq-ey3Ax");
   const [baseUrl, setBaseUrl] = useState("https://ollama.com");
   const [model, setModel] = useState("deepseek-v3.1:671b-cloud");
 
-  // State for App Logic
+  // App State
   const [input, setInput] = useState("");
   const [mermaidCode, setMermaidCode] = useState("");
   const [explanation, setExplanation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Persist Settings
+  // Load Settings
   useEffect(() => {
     const storedKey = localStorage.getItem("diagram_api_key");
     const storedUrl = localStorage.getItem("diagram_base_url");
@@ -71,17 +71,16 @@ export default function Home() {
 
       setMermaidCode(parsed.mermaid);
       setExplanation(parsed.explanation);
-
     } catch (error: any) {
       console.error("Generation Error:", error);
-      setExplanation(`Error generating diagram: ${error.message || "Unknown error"}. \n\nMake sure Ollama is running and responding to JSON requests.`);
+      setExplanation(`Error generating diagram: ${error.message || "Unknown error"}.`);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <main className="flex flex-col h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-black">
+    <main className="flex flex-col h-screen overflow-hidden bg-[#0d1117] text-slate-300 font-sans">
       <Header
         apiKey={apiKey}
         setApiKey={(key) => handleUpdateSettings(key, baseUrl, model)}
@@ -92,17 +91,23 @@ export default function Home() {
       />
 
       <div className="flex flex-1 overflow-hidden">
-        <InputPanel
-          input={input}
-          setInput={setInput}
-          onGenerate={generateDiagram}
-          isLoading={isLoading}
-        />
-        <OutputPanel
-          mermaidCode={mermaidCode}
-          explanation={explanation}
-          isLoading={isLoading}
-        />
+        {/* Strictly defined 50/50 split */}
+        <div className="w-1/2 h-full overflow-hidden">
+          <InputPanel
+            input={input}
+            setInput={setInput}
+            onGenerate={generateDiagram}
+            isLoading={isLoading}
+          />
+        </div>
+
+        <div className="w-1/2 h-full overflow-hidden">
+          <OutputPanel
+            mermaidCode={mermaidCode}
+            explanation={explanation}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
     </main>
   );

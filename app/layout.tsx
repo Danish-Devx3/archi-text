@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "DiagramGPT",
-  description: "AI-powered Diagram Generator",
+  title: "Diagram Studio",
+  description: "Professional Diagramming IDE",
 };
 
 export default function RootLayout({
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-[#0d1117] text-slate-300`}>{children}</body>
     </html>
   );
 }

@@ -36,7 +36,7 @@ export function MermaidRenderer({ chart }: MermaidRendererProps) {
                 const cleanSvg = svg
                     .replace(/max-width:[^;"]+;/g, "")
                     .replace(/height="[^"]*"/, "")
-                    .replace(/style="[^"]*"/, 'style="width: 100%; height: auto;"');
+                    .replace(/style="[^"]*"/, 'style="width: 100%; height: 100%;"');
 
                 setSvg(cleanSvg);
             } catch (err) {
@@ -53,7 +53,7 @@ export function MermaidRenderer({ chart }: MermaidRendererProps) {
             <div className="flex flex-col items-center justify-center h-full text-red-400 p-8 text-center bg-red-950/20 rounded-xl border border-red-500/20">
                 <p className="font-semibold mb-2">Rendering Error</p>
                 <p className="text-sm opacity-80">{error}</p>
-                <pre className="mt-4 text-xs bg-black/50 p-4 rounded text-left overflow-auto max-w-full max-h-40 font-mono text-slate-400">
+                <pre className="mt-4 text-xs bg-black/50 p-4 rounded text-left overflow-auto max-w-full max-h-full font-mono text-slate-400">
                     {chart}
                 </pre>
             </div>
