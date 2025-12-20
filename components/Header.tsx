@@ -76,7 +76,7 @@ export function Header({ apiKey, setApiKey, baseUrl, setBaseUrl, model, setModel
                 <div className="p-1 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
                     <Box size={18} />
                 </div>
-                <span className="font-semibold text-slate-200 text-sm tracking-wide">Diagram Studio</span>
+                <span className="font-semibold text-slate-200 text-sm tracking-wide">Archi-Text</span>
             </div>
 
             {/* Right: Actions */}

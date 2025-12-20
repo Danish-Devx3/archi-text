@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Diagram Studio",
-  description: "Professional Diagramming IDE",
+  title: "Archi-Text - Visualize chaos.",
+  description: "Visualize chaos. Instantly convert natural language, code, and raw data into professional diagrams using local AI.",
 };
 
 export default function RootLayout({
