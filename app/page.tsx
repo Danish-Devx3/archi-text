@@ -8,34 +8,15 @@ import { generateDiagramConfig } from "@/lib/openai";
 
 export default function Home() {
   // Settings State
-  const [apiKey, setApiKey] = useState("644633e59f7e45f39c2f6df2de408c31.VgbbsHjX1LxszE7wyq-ey3Ax");
-  const [baseUrl, setBaseUrl] = useState("https://ollama.com");
-  const [model, setModel] = useState("deepseek-v3.1:671b-cloud");
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const model = process.env.NEXT_PUBLIC_MODEL;
 
   // App State
   const [input, setInput] = useState("");
   const [mermaidCode, setMermaidCode] = useState("");
   const [explanation, setExplanation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  // Load Settings
-  useEffect(() => {
-    const storedKey = localStorage.getItem("diagram_api_key");
-    const storedUrl = localStorage.getItem("diagram_base_url");
-    const storedModel = localStorage.getItem("diagram_model");
-    if (storedKey) setApiKey(storedKey);
-    if (storedUrl) setBaseUrl(storedUrl);
-    if (storedModel) setModel(storedModel);
-  }, []);
-
-  const handleUpdateSettings = (key: string, url: string, modelName: string) => {
-    setApiKey(key);
-    setBaseUrl(url);
-    setModel(modelName);
-    localStorage.setItem("diagram_api_key", key);
-    localStorage.setItem("diagram_base_url", url);
-    localStorage.setItem("diagram_model", modelName);
-  };
 
   const generateDiagram = async () => {
     if (!input.trim()) return;
@@ -81,14 +62,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col h-screen overflow-hidden bg-[#0d1117] text-slate-300 font-sans">
-      <Header
-        apiKey={apiKey}
-        setApiKey={(key) => handleUpdateSettings(key, baseUrl, model)}
-        baseUrl={baseUrl}
-        setBaseUrl={(url) => handleUpdateSettings(apiKey, url, model)}
-        model={model}
-        setModel={(m) => handleUpdateSettings(apiKey, baseUrl, m)}
-      />
+      <Header />
 
       <div className="flex flex-1 overflow-hidden">
         {/* Strictly defined 50/50 split */}
