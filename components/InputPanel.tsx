@@ -3,6 +3,7 @@
 import React from "react";
 import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { TextareaButton } from "./TextareaButton";
 
 interface InputPanelProps {
     input: string;
@@ -21,17 +22,17 @@ const TEMPLATES = [
 
 export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPanelProps) {
     return (
-        <div className="flex flex-col h-full bg-[#161b22] border-r border-slate-800">
+        <div className="flex flex-col h-full bg-muted/50 border-r border-border">
             {/* Toolbar / Label */}
-            <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-[#161b22]">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Input</span>
+            <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/50">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Input</span>
                 <button
                     onClick={onGenerate}
                     disabled={isLoading}
                     className={cn(
                         "flex items-center gap-2 px-3 py-1 text-xs font-semibold rounded transition-colors",
                         isLoading
-                            ? "text-slate-500 cursor-not-allowed"
+                            ? "text-muted-foreground cursor-not-allowed"
                             : "text-green-400 hover:bg-green-400/10 hover:text-green-300"
                     )}
                 >
@@ -40,28 +41,13 @@ export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPane
                 </button>
             </div>
 
-            {/* Code Editor Area */}
-            <div className="flex-1 relative group">
-                {/* Line Gutter (Visual Only) */}
-                <div className="absolute left-0 top-0 bottom-0 w-8 bg-[#0d1117] border-r border-slate-800 flex flex-col items-end pt-4 pr-2 text-slate-700 font-mono text-xs select-none">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                        <div key={i}>{i + 1}</div>
-                    ))}
-                </div>
-
-                <textarea
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="// Describe your diagram or paste Mermaid code directly..."
-                    className="w-full h-full bg-[#0d1117] pl-10 pt-4 pr-4 pb-4 text-sm font-mono text-slate-300 resize-none focus:outline-none custom-scrollbar leading-6"
-                    spellCheck={false}
-                />
-            </div>
+            {/* Code input Area */}
+            <TextareaButton input={input} setInput={setInput} onGenerate={onGenerate} isLoading={isLoading} />
 
             {/* Templates Section */}
-            <div className="h-[40%] flex flex-col border-t border-slate-800 bg-[#161b22]">
-                <div className="px-4 py-2 border-b border-slate-800">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Templates</span>
+            <div className="h-[40%] flex flex-col border-t border-border bg-muted/50">
+                <div className="px-4 py-2 border-b border-border">
+                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Templates</span>
                 </div>
                 <div className="p-4 overflow-y-auto custom-scrollbar">
                     <div className="grid grid-cols-3 gap-2">
@@ -69,7 +55,7 @@ export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPane
                             <button
                                 key={t.label}
                                 onClick={() => setInput(t.text)}
-                                className="px-3 py-2 rounded-md bg-slate-800 border border-transparent hover:border-indigo-500 hover:bg-indigo-600/20 transition-all text-xs font-medium text-slate-300 hover:text-white truncate"
+                                className="px-3 py-2 rounded-md bg-accent border border-transparent hover:border-indigo-500 hover:bg-indigo-600/20 transition-all text-xs font-medium text-muted-foreground hover:text-foreground truncate"
                             >
                                 {t.label}
                             </button>

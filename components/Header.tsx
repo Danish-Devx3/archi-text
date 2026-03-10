@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Settings, Download, Copy, Share2, Box, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 interface HeaderProps {
     apiKey: string;
@@ -53,29 +54,29 @@ export function Header() {
     };
 
     return (
-        <header className="h-14 flex items-center justify-between px-4 border-b border-slate-800 bg-[#0d1117] relative z-50">
+        <header className="h-14 flex items-center justify-between px-4 border-b border-border bg-background relative z-50">
             {/* Left: Logo */}
             <div className="flex items-center gap-2">
                 <div className="p-1 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
                     <Box size={18} />
                 </div>
-                <span className="font-semibold text-slate-200 text-sm tracking-wide">Archi-Text</span>
+                <span className="font-semibold text-foreground text-sm tracking-wide">Archi-Text</span>
             </div>
 
             {/* Right: Actions */}
             <div className="flex items-center gap-1">
-                <button onClick={handleDownload} className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-md transition-colors">
+                <Button variant={"outline"} onClick={handleDownload} className="flex items-center gap-2 px-3 py-4.5 text-xs font-medium hover:text-foreground hover:bg-accent rounded-md transition-colors">
                     <Download size={14} />
                     <span>Export SVG</span>
-                </button>
-                <button onClick={handleCopyImage} className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-md transition-colors">
+                </Button>
+                <Button variant={"outline"} onClick={handleCopyImage} className="flex items-center gap-2 px-3 py-4.5 text-xs font-medium hover:text-foreground hover:bg-accent rounded-md transition-colors">
                     <Copy size={14} />
                     <span>Copy Image</span>
-                </button>
-                <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-md transition-colors">
+                </Button>
+                <Button variant={"outline"} className="flex items-center gap-2 px-3 py-4.5 text-xs font-medium hover:text-foreground hover:bg-accent rounded-md transition-colors">
                     <Share2 size={14} />
                     <span>Share</span>
-                </button>
+                </Button >
             </div>
         </header>
     );

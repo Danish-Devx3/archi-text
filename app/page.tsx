@@ -61,12 +61,12 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col h-screen overflow-hidden bg-[#0d1117] text-slate-300 font-sans">
+    <main className="">
       <Header />
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex overflow-hidden">
         {/* Strictly defined 50/50 split */}
-        <div className="w-1/5 h-full overflow-hidden">
+        <div className="w-[30%] h-full overflow-hidden">
           <InputPanel
             input={input}
             setInput={setInput}
@@ -75,7 +75,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="w-4/5 h-full overflow-hidden">
+        <div className="flex-1 h-full overflow-hidden">
           <OutputPanel
             mermaidCode={mermaidCode}
             explanation={explanation}
