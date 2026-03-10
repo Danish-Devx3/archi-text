@@ -23,24 +23,6 @@ const TEMPLATES = [
 export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPanelProps) {
     return (
         <div className="flex flex-col h-full bg-muted/50 border-r border-border">
-            {/* Toolbar / Label */}
-            <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/50">
-                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Input</span>
-                <button
-                    onClick={onGenerate}
-                    disabled={isLoading}
-                    className={cn(
-                        "flex items-center gap-2 px-3 py-1 text-xs font-semibold rounded transition-colors",
-                        isLoading
-                            ? "text-muted-foreground cursor-not-allowed"
-                            : "text-green-400 hover:bg-green-400/10 hover:text-green-300"
-                    )}
-                >
-                    <Play size={12} className={cn(isLoading && "animate-spin")} />
-                    {isLoading ? "Running..." : "Run"}
-                </button>
-            </div>
-
             {/* Code input Area */}
             <TextareaButton input={input} setInput={setInput} onGenerate={onGenerate} isLoading={isLoading} />
 
