@@ -7,14 +7,13 @@ import { MermaidRenderer } from "./MermaidRenderer";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface OutputPanelProps {
-    mermaidCode: string;
-    explanation: string;
-    isLoading: boolean;
-}
+import { useAppSelector } from "@/redux/hooks";
 
-export function OutputPanel({ mermaidCode, explanation, isLoading }: OutputPanelProps) {
+export function OutputPanel() {
     const [showTerminal, setShowTerminal] = useState(true);
+    const mermaidCode = useAppSelector((state) => state.chat.mermaidCode);
+    const explanation = useAppSelector((state) => state.chat.explanationMarkdown);
+    const isLoading = useAppSelector((state) => state.chat.isLoading);
 
     return (
         <div className="flex flex-col flex-[1.2] bg-muted/50 relative overflow-hidden h-[calc(100vh-56px)] border-l border-border">
