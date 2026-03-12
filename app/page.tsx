@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { InputPanel } from "@/components/InputPanel";
 import { OutputPanel } from "@/components/OutputPanel";
-import { generateDiagramConfig } from "@/lib/openai";
+import { generateDiagramConfig } from "@/lib/llm";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setInput, setLoading, setDiagramAndExplanationMarkdown, setError } from "@/redux/features/chatSlice";
 
 export default function Home() {
   // Settings State
@@ -13,17 +15,21 @@ export default function Home() {
   const model = process.env.NEXT_PUBLIC_MODEL;
 
   // App State
-  const [input, setInput] = useState("");
-  const [mermaidCode, setMermaidCode] = useState("");
-  const [explanation, setExplanation] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const input = useAppSelector((state) => state.chat.input);
+  const mermaidCode = useAppSelector((state) => state.chat.mermaidCode);
+  const explanation = useAppSelector((state) => state.chat.explanationMarkdown);
+  const isLoading = useAppSelector((state) => state.chat.isLoading);
+
+  const dispatch = useAppDispatch();
 
   const generateDiagram = async () => {
     if (!input.trim()) return;
 
-    setIsLoading(true);
-    setMermaidCode("");
-    setExplanation("");
+    dispatch(setLoading(true));
+    dispatch(setDiagramAndExplanationMarkdown({
+      mermaidCode: "",
+      explanationMarkdown: "",
+    }));
 
     try {
       const response = await fetch('/api/chat', {
@@ -50,13 +56,16 @@ export default function Home() {
         throw new Error(parsed.error);
       }
 
-      setMermaidCode(parsed.mermaid);
-      setExplanation(parsed.explanation);
+      dispatch(setDiagramAndExplanationMarkdown({
+        mermaidCode: parsed.mermaid,
+        explanationMarkdown: parsed.explanation,
+      }));
+
     } catch (error: any) {
       console.error("Generation Error:", error);
-      setExplanation(`Error generating diagram: ${error.message || "Unknown error"}.`);
+      dispatch(setError(`Error generating diagram: ${error.message || "Unknown error"}.`));
     } finally {
-      setIsLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -67,20 +76,11 @@ export default function Home() {
       <div className="flex overflow-hidden">
         {/* Strictly defined 50/50 split */}
         <div className="w-[30%] h-full overflow-hidden">
-          <InputPanel
-            input={input}
-            setInput={setInput}
-            onGenerate={generateDiagram}
-            isLoading={isLoading}
-          />
+          <InputPanel />
         </div>
 
         <div className="flex-1 h-full overflow-hidden">
-          <OutputPanel
-            mermaidCode={mermaidCode}
-            explanation={explanation}
-            isLoading={isLoading}
-          />
+          <OutputPanel />
         </div>
       </div>
     </main>
