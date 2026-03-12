@@ -23,10 +23,10 @@ const systemPrompt = `You are a Senior Software Architect and Mermaid.js Expert.
          - ClassDiagram for code structure/OOP.
          - StateDiagram for lifecycle changes.
          - ERDiagram for databases.
-    2. "explanation": (String) A detailed, step-by-step breakdown of what the diagram represents.
+    2. "explanation": (String) A detailed, step-by-step breakdown of what the diagram represents in Markdown format.
        - If explaining Code: Walk through the execution flow logic visualized in the diagram.
        - If explaining a System: Detail the components and their interactions.
-       - Format this as a clean, readable string.
+       - Format this as a clean, readable string using Markdown for structure (headings, lists, etc.).
 
     CONSTRAINTS:
     - Do not include any conversational text outside the JSON.
@@ -43,7 +43,7 @@ export const generateDiagram = async (input: string, dispatch: AppDispatch) => {
    }));
 
    try {
-      const response = await ai.models.generateContent({
+      const response: any = await ai.models.generateContent({
          model: "gemini-3-flash-preview",
          contents: [{ role: "user", parts: [{ text: input }] }],
          config: {

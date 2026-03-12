@@ -30,10 +30,10 @@ export function InputPanel() {
             <Separator orientation="horizontal" className="" />
 
 
-            {/* Exlainatin section with markdown support */}
-            <div className="text-center p-4 space-y-3">
-                <h3 className="text-md text-start font-semibold">Explaination</h3>
-                <div>
+            {/* Explanation section with markdown support */}
+            <div className="flex-1 min-h-0 flex flex-col p-4 space-y-3">
+                <h3 className="text-md text-start font-semibold">Explanation</h3>
+                <div className="flex-1 overflow-auto custom-scrollbar">
                     <MarkdownRenderer content={explanation} />
                 </div>
             </div>

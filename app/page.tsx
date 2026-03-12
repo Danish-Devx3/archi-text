@@ -10,7 +10,7 @@ export default function Home() {
     <main className="">
       <Header />
 
-      <div className="flex overflow-hidden">
+      <div className="flex h-[calc(100vh-3.5rem)] overflow-hidden">
         {/* Strictly defined 50/50 split */}
         <div className="w-[30%] h-full overflow-hidden">
           <InputPanel />
