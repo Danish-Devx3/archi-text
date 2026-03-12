@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { Play } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { TextareaButton } from "./TextareaButton";
+import MarkdownRenderer from "./MarkdownRender";
+import { Separator } from "./ui/separator";
 
 interface InputPanelProps {
     input: string;
@@ -26,25 +26,47 @@ export function InputPanel({ input, setInput, onGenerate, isLoading }: InputPane
             {/* Code input Area */}
             <TextareaButton input={input} setInput={setInput} onGenerate={onGenerate} isLoading={isLoading} />
 
-            {/* Templates Section */}
-            <div className="h-[40%] flex flex-col border-t border-border bg-muted/50">
-                <div className="px-4 py-2 border-b border-border">
-                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Templates</span>
-                </div>
-                <div className="p-4 overflow-y-auto custom-scrollbar">
-                    <div className="grid grid-cols-3 gap-2">
-                        {TEMPLATES.map((t) => (
-                            <button
-                                key={t.label}
-                                onClick={() => setInput(t.text)}
-                                className="px-3 py-2 rounded-md bg-accent border border-transparent hover:border-indigo-500 hover:bg-indigo-600/20 transition-all text-xs font-medium text-muted-foreground hover:text-foreground truncate"
-                            >
-                                {t.label}
-                            </button>
-                        ))}
-                    </div>
+            <Separator orientation="horizontal" className="" />
+
+
+            {/* Exlainatin section with markdown support */}
+            <div className="text-center p-4 space-y-3">
+                <h3 className="text-md text-start font-semibold">Explaination</h3>
+                <div>
+                    <MarkdownRenderer content={`# Welcome to Archi-text 🚀
+
+Generate beautiful **diagrams** and architecture visualizations right from your text!
+
+### How it works:
+1. **Explain your system** in plain text.
+2. We'll automatically generate a **powerful diagram**.
+3. **Analyze** and **Refine** your architecture!
+
+*Put your query or problem in the input above to get started.*`} />
                 </div>
             </div>
+
+            {/* Templates Section */}
+            {!input && (
+                <div className="h-[40%] flex flex-col border-t border-border bg-muted/50">
+                    <div className="px-4 py-2 border-b border-border">
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Templates</span>
+                    </div>
+                    <div className="p-4 overflow-y-auto custom-scrollbar">
+                        <div className="grid grid-cols-3 gap-2">
+                            {TEMPLATES.map((t) => (
+                                <button
+                                    key={t.label}
+                                    onClick={() => setInput(t.text)}
+                                    className="px-3 py-2 rounded-md bg-accent border border-transparent hover:border-indigo-500 hover:bg-indigo-600/20 transition-all text-xs font-medium text-muted-foreground hover:text-foreground truncate"
+                                >
+                                    {t.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
