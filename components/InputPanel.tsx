@@ -17,7 +17,8 @@ const TEMPLATES = [
     { label: "Code Snippet Diagram & Explanation", text: " [Explain it & give Diagram] export async function POST(req: Request) {\n    try {\n        const { message, model, apiKey, baseUrl, systemPrompt } = await req.json();\n\n        // Check if using a custom key that isn't the default placeholder\n        const headers: Record<string, string> = {};\n        if (apiKey && apiKey !== 'ollama') {\n            headers['Authorization'] = `Bearer ${apiKey}`;\n        }\n\n        const ollama = new Ollama({\n            host: baseUrl || 'http://localhost:11434', \n            headers,\n        });\n\n        const completion = await ollama.chat({\n            model: model || 'llama3',\n            messages: [\n                { role: 'system', content: systemPrompt },\n                { role: 'user', content: message },\n            ],\n            format: 'json',\n        });\n\n        let content = completion.message.content || '{}';\n        // Sanitize: Remove markdown code blocks if the model includes them despite instructions\n        content = content.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n\n        return NextResponse.json(JSON.parse(content));\n    } catch (error: any) {\n        console.error(\"API Error:\", error);\n        return NextResponse.json(\n            { error: error.message || 'Internal Server Error', mermaid: '', explanation: '' },\n            { status: 500 }\n        );\n    }\n}" },
 ];
 
-export function InputPanel() {
+export function 
+InputPanel() {
     const input = useAppSelector((state) => state.chat.input);
     const isLoading = useAppSelector((state) => state.chat.isLoading);
     const dispatch = useAppDispatch();
@@ -39,7 +40,7 @@ export function InputPanel() {
             </div>
 
             {/* Templates Section */}
-            {!input && (
+            {!input && !explanation && (
                 <div className="h-[40%] flex flex-col border-t border-border bg-muted/50">
                     <div className="px-4 py-2 border-b border-border">
                         <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Templates</span>

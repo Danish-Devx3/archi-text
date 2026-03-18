@@ -75,7 +75,7 @@ export function OutputPanel() {
             </div>
 
             {/* Terminal / Analysis Panel (Collapsible) */}
-            <AnimatePresence>
+            {/* <AnimatePresence>
                 {showTerminal && (
                     <motion.div
                         initial={{ height: 0 }}
@@ -96,7 +96,7 @@ export function OutputPanel() {
                         </div>
                     </motion.div>
                 )}
-            </AnimatePresence>
+            </AnimatePresence> */}
 
             {/* Status Bar */}
             <div className="h-6 bg-background border-t border-border flex items-center justify-between px-3 text-[10px] text-muted-foreground select-none">

@@ -6,14 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
-interface HeaderProps {
-    apiKey: string;
-    setApiKey: (key: string) => void;
-    baseUrl: string;
-    setBaseUrl: (url: string) => void;
-    model: string;
-    setModel: (model: string) => void;
-}
 
 export function Header() {
 
